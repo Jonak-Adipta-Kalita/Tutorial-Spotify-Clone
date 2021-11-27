@@ -7,9 +7,11 @@ import {
   RssIcon,
 } from "@heroicons/react/outline";
 import { useRouter } from "next/dist/client/router";
+import { useSession } from "next-auth/react";
 
 const Sidebar = () => {
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   return (
     <div className="text-gray-500 p-5 text-sm border-r border-gray-900">
