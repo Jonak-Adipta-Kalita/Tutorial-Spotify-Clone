@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Center from "../components/Center";
 import Sidebar from "../components/Sidebar";
 
 const Home = () => {
@@ -8,9 +9,9 @@ const Home = () => {
         <title>JAK Spotify Clone</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <main className="">
+      <main className="flex">
         <Sidebar />
-        {/* Center */}
+        <Center />
       </main>
       {/* Player */}
     </div>

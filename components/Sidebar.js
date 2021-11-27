@@ -14,7 +14,7 @@ const Sidebar = () => {
   const { data: session, status } = useSession();
 
   return (
-    <div className="text-gray-500 p-5 text-sm border-r border-gray-900">
+    <div className="text-gray-500 p-5 text-sm border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide">
       <div className="space-y-4">
         <div
           className="w-[130px] md:w-[150px] cursor-pointer pb-2 text-white"
