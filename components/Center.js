@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, PlayIcon } from "@heroicons/react/solid";
+import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -72,6 +73,13 @@ const Center = () => {
           </div>
         </div>
       </section>
+      <div className="flex items-center px-10 py-4 pb-6 space-x-12">
+        <PlayIcon
+          className="h-[60px] w-[60px] text-green-500 bg-white rounded-full cursor-pointer hover:bg-gray-200"
+          onClick={() => {}}
+        />
+        <DotsHorizontalIcon className="h-7 w-7 text-gray-400 cursor-pointer hover:text-gray-600" />
+      </div>
       <div className="flex text-gray-400 mb-4 px-14 justify-between">
         <h2>
           # <span className="ml-5">TITLE</span>
