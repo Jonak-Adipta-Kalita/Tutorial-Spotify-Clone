@@ -72,6 +72,14 @@ const Center = () => {
           </div>
         </div>
       </section>
+      <div className="flex text-gray-400 mb-4 px-14 justify-between">
+        <h2>
+          # <span className="ml-5">TITLE</span>
+        </h2>
+        <h2>ALBUM</h2>
+        <h2>Duration</h2>
+      </div>
+      <hr className="border-gray-500 mb-4 mx-12" />
       <div>
         <Songs />
       </div>
