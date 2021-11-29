@@ -27,7 +27,7 @@ const Sidebar = () => {
   }, [session, spotifyAPI]);
 
   return (
-    <div className="text-gray-500 p-5 text-sm border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide">
+    <div className="text-gray-500 p-5 text-xslg:text-sm border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide sm:w-[192px] lg:w-[240px] hidden md:inline-flex">
       <div className="space-y-4">
         <div
           className="w-[130px] md:w-[150px] cursor-pointer pb-2 text-white"
