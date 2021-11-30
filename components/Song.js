@@ -3,10 +3,12 @@ import millistoMinuteAndSeconds from "../lib/time";
 import { HeartIcon, DotsHorizontalIcon } from "@heroicons/react/outline";
 import { useRecoilState } from "recoil";
 import { currentTrackIdState, isPlayingState } from "../atoms/songAtom";
+import moment from "moment";
 
 const Song = ({ order, track }) => {
   const spotifyAPI = useSpotify();
   const { id, uri, album, name, artists, duration_ms } = track.track;
+  let addedAt = "";
   const [currentTrackId, setCurrentTrackId] =
     useRecoilState(currentTrackIdState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
@@ -18,6 +20,8 @@ const Song = ({ order, track }) => {
       uris: [uri],
     });
   };
+
+  addedAt = moment(track?.added_at).format("ll");
 
   return (
     <div
@@ -38,6 +42,7 @@ const Song = ({ order, track }) => {
       </div>
       <div className="flex items-center justify-between ml-auto md:ml-0">
         <p className="hidden md:inline w-40">{album.name}</p>
+        <p className="hidden md:inline w-40">{addedAt}</p>
         <div className="flex items-center space-x-2">
           <HeartIcon className="h-5 w-5 cursor-pointer hover:text-white" />
           <p>{millistoMinuteAndSeconds(duration_ms)}</p>

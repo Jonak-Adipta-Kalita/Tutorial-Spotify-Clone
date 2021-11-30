@@ -104,8 +104,11 @@ const Center = () => {
         <h2>
           # <span className="ml-5">TITLE</span>
         </h2>
-        <h2 className="hidden md:inline ml-[60px]">ALBUM</h2>
-        <h2 className="mr-[25px]">Duration</h2>
+        <div className="flex items-center space-x-[150px]">
+          <h2 className="hidden md:inline">ALBUM</h2>
+          <h2 className="hidden md:inline">DATE ADDED</h2>
+          <h2 className="">DURATION</h2>
+        </div>
       </div>
       <hr className="border-gray-500 mb-4 mx-12" />
       <div>
