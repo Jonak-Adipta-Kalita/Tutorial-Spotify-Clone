@@ -1,7 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { currentTrackIdState, isPlayingState } from "../atoms/songAtom";
+import { hasPremiumState } from "../atoms/userAtom";
 import useSongInfo from "../hooks/useSongInfo";
 import useSpotify from "../hooks/useSpotify";
 
@@ -13,6 +14,7 @@ const Player = () => {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const [volume, setVolume] = useState(50);
   const songInfo = useSongInfo();
+  const hasPremium = useRecoilValue(hasPremiumState);
 
   const fetchCurrentSong = () => {
     if (!songInfo) {
@@ -26,7 +28,7 @@ const Player = () => {
   };
 
   useEffect(() => {
-    if (spotifyAPI.getAccessToken() && !currentTrackId) {
+    if (hasPremium && spotifyAPI.getAccessToken() && !currentTrackId) {
       fetchCurrentSong();
       setVolume(50);
     }

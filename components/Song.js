@@ -1,9 +1,10 @@
 import useSpotify from "../hooks/useSpotify";
 import millistoMinuteAndSeconds from "../lib/time";
 import { HeartIcon, DotsHorizontalIcon } from "@heroicons/react/outline";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { currentTrackIdState, isPlayingState } from "../atoms/songAtom";
 import moment from "moment";
+import { hasPremiumState } from "../atoms/userAtom";
 
 const Song = ({ order, track }) => {
   const spotifyAPI = useSpotify();
@@ -12,13 +13,16 @@ const Song = ({ order, track }) => {
   const [currentTrackId, setCurrentTrackId] =
     useRecoilState(currentTrackIdState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
+  const hasPremium = useRecoilValue(hasPremiumState);
 
   const playSong = () => {
     setCurrentTrackId(id);
     setIsPlaying(true);
-    // spotifyAPI.play({
-    //   uris: [uri],
-    // });
+    if (hasPremium) {
+      spotifyAPI.play({
+        uris: [uri],
+      });
+    }
   };
 
   addedAt = moment(track?.added_at).format("ll");
