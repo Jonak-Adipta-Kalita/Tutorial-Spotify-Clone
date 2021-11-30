@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { ChevronDownIcon, PlayIcon } from "@heroicons/react/solid";
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
@@ -47,7 +47,7 @@ const Center = () => {
     minutes = minutes < 10 ? minutes : minutes;
     seconds = seconds < 10 ? seconds : seconds;
 
-    return hours + " H " + minutes + " M";
+    return hours + " HR " + minutes + " MIN";
   };
 
   totalTime = msToTime(
@@ -57,9 +57,12 @@ const Center = () => {
   );
 
   return (
-    <div className="flex-grow h-screen overflow-y-scroll scrollbar-hide">
+    <div className="flex-grow h-screen overflow-y-scroll pb-28 scrollbar-hide">
       <header className="absolute top-5 right-8">
-        <div className="flex items-center bg-black space-x-3 opacity-90 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2">
+        <div
+          className="flex items-center bg-black space-x-3 opacity-90 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2"
+          onClick={() => signOut()}
+        >
           <img className="rounded-full w-10 h-10" src={session?.user?.image} />
           <h2 className="text-white">{session?.user?.name}</h2>
           <ChevronDownIcon className="h-5 w-5 text-white" />
@@ -101,12 +104,21 @@ const Center = () => {
         <h2>
           # <span className="ml-5">TITLE</span>
         </h2>
-        <h2>ALBUM</h2>
-        <h2>Duration</h2>
+        <h2 className="hidden md:inline ml-[60px]">ALBUM</h2>
+        <h2 className="mr-[25px]">Duration</h2>
       </div>
       <hr className="border-gray-500 mb-4 mx-12" />
       <div>
         <Songs />
+      </div>
+      <div className="flex w-full p-14 justify-between">
+        <div></div>
+        <button
+          className="text-white font-semibold"
+          onClick={(e) => e.preventDefault()}
+        >
+          Find More
+        </button>
       </div>
     </div>
   );

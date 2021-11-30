@@ -1,15 +1,28 @@
 import useSpotify from "../hooks/useSpotify";
 import millistoMinuteAndSeconds from "../lib/time";
 import { HeartIcon, DotsHorizontalIcon } from "@heroicons/react/outline";
+import { useRecoilState } from "recoil";
+import { currentTrackIdState, isPlayingState } from "../atoms/songAtom";
 
 const Song = ({ order, track }) => {
   const spotifyAPI = useSpotify();
-  const { album, name, artists, duration_ms } = track.track;
+  const { id, uri, album, name, artists, duration_ms } = track.track;
+  const [currentTrackId, setCurrentTrackId] =
+    useRecoilState(currentTrackIdState);
+  const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
+
+  const playSong = () => {
+    setCurrentTrackId(id);
+    setIsPlaying(true);
+    spotifyAPI.play({
+      uris: [uri],
+    });
+  };
 
   return (
     <div
       className="grid grid-cols-2 text-gray-500 py-4 px-5 hover:bg-gray-900 rounded-lg cursor-pointer"
-      onClick={() => {}}
+      onClick={playSong}
     >
       <div className="flex items-center space-x-4">
         <p className="">{order + 1}</p>
