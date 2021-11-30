@@ -7,6 +7,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { playlistState, playlistIdState } from "../atoms/playlistAtom";
 import useSpotify from "../hooks/useSpotify";
 import Songs from "./Songs";
+import Recommendations from "./Recommendations";
 
 const colors = [
   "from-indigo-500",
@@ -114,13 +115,31 @@ const Center = () => {
       <div>
         <Songs />
       </div>
-      <div className="flex w-full p-14 justify-between">
+      <div className="flex w-full px-14 pt-14 justify-between">
         <div></div>
         <button
           className="text-white font-semibold"
           onClick={(e) => e.preventDefault()}
         >
           Find More
+        </button>
+      </div>
+      <div className="px-14 pt-5">
+        <p className="text-white font-bold">Recommended</p>
+        <p className="text-gray-400 text-sm">
+          Based on what's in this playlist
+        </p>
+      </div>
+      <div>
+        <Recommendations />
+      </div>
+      <div className="flex w-full px-14 pt-14 justify-between">
+        <div></div>
+        <button
+          className="text-white font-semibold"
+          onClick={(e) => e.preventDefault()}
+        >
+          Refresh
         </button>
       </div>
     </div>

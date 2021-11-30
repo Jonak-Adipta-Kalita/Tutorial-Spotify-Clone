@@ -40,15 +40,24 @@ const Sidebar = () => {
             ></path>
           </svg>
         </div>
-        <button className="flex items-center space-x-2 hover:text-white cursor-pointer">
+        <button
+          className="flex items-center space-x-2 hover:text-white cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           <HomeIcon className="h-5 w-5" />
           <p>Home</p>
         </button>
-        <button className="flex items-center space-x-2 hover:text-white cursor-pointer">
+        <button
+          className="flex items-center space-x-2 hover:text-white cursor-pointer"
+          onClick={() => router.push("/search")}
+        >
           <SearchIcon className="h-5 w-5" />
           <p>Search</p>
         </button>
-        <button className="flex items-center space-x-2 hover:text-white cursor-pointer">
+        <button
+          className="flex items-center space-x-2 hover:text-white cursor-pointer"
+          onClick={() => router.push("/collection/playlists")}
+        >
           <LibraryIcon className="h-5 w-5" />
           <p>Your Library</p>
         </button>
