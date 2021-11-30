@@ -37,7 +37,24 @@ const Center = () => {
       .catch((error) => console.log(error.message));
   }, [spotifyAPI, playlistId]);
 
-  console.log(playlist);
+  const msToTime = (duration) => {
+    let milliseconds = parseInt((duration % 1000) / 100),
+      seconds = Math.floor((duration / 1000) % 60),
+      minutes = Math.floor((duration / (1000 * 60)) % 60),
+      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    hours = hours < 10 ? hours : hours;
+    minutes = minutes < 10 ? minutes : minutes;
+    seconds = seconds < 10 ? seconds : seconds;
+
+    return hours + " H " + minutes + " M";
+  };
+
+  totalTime = msToTime(
+    playlist?.tracks?.items
+      .map((item) => item?.track?.duration_ms)
+      .reduce((partial_sum, a) => partial_sum + a, 0)
+  );
 
   return (
     <div className="flex-grow h-screen overflow-y-scroll scrollbar-hide">
