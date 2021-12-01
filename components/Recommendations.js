@@ -29,14 +29,14 @@ const Recommendations = () => {
 
     spotifyAPI
       .getRecommendations({
-        seed_artists: [
-          seedArtists[0],
-          seedArtists[1],
-          seedArtists[2],
-          seedArtists[3],
-          seedArtists[4],
-        ],
-        // seed_artists: ["6mfK6Q2tzLMEchAr0e9Uzu", "4DYFVNKZ1uixa6SQTvzQwJ"],
+        // seed_artists: [
+        //   seedArtists[0],
+        //   seedArtists[1],
+        //   seedArtists[2],
+        //   seedArtists[3],
+        //   seedArtists[4],
+        // ],
+        seed_artists: ["6mfK6Q2tzLMEchAr0e9Uzu", "4DYFVNKZ1uixa6SQTvzQwJ"],
       })
       .then((recommendations_) => setRecommendations(recommendations_));
   }, [spotifyAPI, session, currentTrackId]);
