@@ -1,10 +1,26 @@
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { hasPremiumState } from "../atoms/userAtom";
 import Center from "../components/Center";
 import Player from "../components/Player";
 import Sidebar from "../components/Sidebar";
+import useSpotify from "../hooks/useSpotify";
 
 const Home = () => {
+  const setHasPremium = useSetRecoilState(hasPremiumState);
+  const { data: session } = useSession();
+  const spotifyAPI = useSpotify();
+
+  useEffect(() => {
+    if (spotifyAPI.getAccessToken()) {
+      spotifyAPI.getUser(session?.user?.username).then((user) => {
+        setHasPremium(false);
+      });
+    }
+  }, [spotifyAPI, session]);
+
   return (
     <div className="bg-black h-screen overflow-hidden">
       <Head>
