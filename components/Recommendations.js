@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import { playlistState } from "../atoms/playlistAtom";
 import { currentTrackIdState, isPlayingState } from "../atoms/songAtom";
 import { hasPremiumState } from "../atoms/userAtom";
@@ -9,33 +9,37 @@ import useSpotify from "../hooks/useSpotify";
 const Recommendations = () => {
   const spotifyAPI = useSpotify();
   const { data: session } = useSession();
-  const [recommendations, setRecommendations] = useState(null);
-  const setCurrentTrackId = useSetRecoilState(currentTrackIdState);
+  const [recommendations, setRecommendations] = useState([]);
+  const [seedArtists, setSeedArtists] = useState([]);
+  const [currentTrackId, setCurrentTrackId] =
+    useRecoilState(currentTrackIdState);
   const setIsPlaying = useSetRecoilState(isPlayingState);
   const hasPremium = useRecoilValue(hasPremiumState);
   const playlist = useRecoilValue(playlistState);
 
-  const seedArtists = [
-    ...new Set(
-      playlist?.tracks?.items
-        ?.map((item) => item?.track?.artists.map((artist) => artist?.id))
-        .flat()
-    ),
-  ];
-
   useEffect(() => {
     if (!spotifyAPI.getAccessToken()) return;
+    setSeedArtists([
+      ...new Set(
+        playlist?.tracks?.items
+          ?.map((item) => item?.track?.artists.map((artist) => artist?.id))
+          .flat()
+      ),
+    ]);
+
     spotifyAPI
       .getRecommendations({
-        // seed_artists: [seedArtists[0], seedArtists[1]],
-        seed_artists: ["6mfK6Q2tzLMEchAr0e9Uzu", "4DYFVNKZ1uixa6SQTvzQwJ"],
+        seed_artists: [
+          seedArtists[0],
+          seedArtists[1],
+          seedArtists[2],
+          seedArtists[3],
+          seedArtists[4],
+        ],
+        // seed_artists: ["6mfK6Q2tzLMEchAr0e9Uzu", "4DYFVNKZ1uixa6SQTvzQwJ"],
       })
       .then((recommendations_) => setRecommendations(recommendations_));
-  }, [spotifyAPI, session]);
-
-  // console.log(
-  //   spotifyAPI.getAccessToken() && spotifyAPI.getArtist(seedArtists[0])
-  // );
+  }, [spotifyAPI, session, currentTrackId]);
 
   const playSong = () => {
     setCurrentTrackId(id);
