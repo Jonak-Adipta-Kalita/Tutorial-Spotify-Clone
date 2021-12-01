@@ -15,7 +15,7 @@ const Home = () => {
 
   useEffect(() => {
     if (spotifyAPI.getAccessToken()) {
-      spotifyAPI.getUser(session?.user?.username).then((user) => {
+      spotifyAPI.getMe().then((user) => {
         setHasPremium(false);
       });
     }
