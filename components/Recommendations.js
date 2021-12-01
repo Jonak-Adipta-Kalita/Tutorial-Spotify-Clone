@@ -22,18 +22,16 @@ const Recommendations = () => {
       .getRecommendations({
         min_energy: 0.4,
         min_popularity: 50,
-        seed_artists: ["6mfK6Q2tzLMEchAr0e9Uzu", "4DYFVNKZ1uixa6SQTvzQwJ"],
+        seed_artists: [
+          ...new Set(
+            playlist?.tracks?.items
+              ?.map((item) => item?.track?.artists.map((artist) => artist?.id))
+              .flat()
+          ),
+        ],
       })
       .then((recommendations_) => setRecommendations(recommendations_));
   }, [spotifyAPI, session]);
-
-  console.log([
-    ...new Set(
-      playlist?.tracks?.items
-        ?.map((item) => item?.track?.artists.map((artist) => artist?.id))
-        .flat()
-    ),
-  ]);
 
   const playSong = () => {
     setCurrentTrackId(id);
@@ -45,32 +43,36 @@ const Recommendations = () => {
     }
   };
 
-  // return (
-  //   <>
-  //     {recommendations.map((recommendation) => (
-  //       <div
-  //         className="grid grid-cols-2 text-gray-500 py-4 px-5 hover:bg-gray-900 rounded-lg cursor-pointer"
-  //         onClick={playSong}
-  //       >
-  //         <div className="flex items-center space-x-4">
-  //           {/* <p className="">{order + 1}</p>
-  //             <img src={album.images[0].url} className="h-10 w-10" />
-  //             <div>
-  //               <p className="w-36 lg:w-64 truncate">{name}</p>
-  //               <p className="w-40">
-  //                 {artists[1]
-  //                   ? artists[0].name
-  //                   : artists.map((artist) => artist.name).join(", ")}
-  //                 Jonak, Tanmoy
-  //               </p>
-  //             </div> */}
-  //         </div>
-  //       </div>
-  //     ))}
-  //   </>
-  // );
-
-  return <div></div>;
+  return (
+    <div className="pt-14">
+      {recommendations?.body?.tracks?.map((track, order) => (
+        <div
+          key={track?.id}
+          className="flex text-gray-500 py-4 px-5 hover:bg-gray-900 rounded-lg cursor-pointer justify-between"
+          onClick={playSong}
+        >
+          <div className="flex items-center">
+            <div className="flex items-center space-x-4">
+              <p className="">{order + 1}</p>
+              <img src={track?.album.images[0].url} className="h-10 w-10" />
+            </div>
+            <div className="pl-5">
+              <p className="w-36 lg:w-64 truncate">{track?.name}</p>
+              <p className="">
+                {track?.artists[1]
+                  ? track?.artists[0].name
+                  : track?.artists.map((artist) => artist.name).join(", ")}
+              </p>
+            </div>
+          </div>
+          <p className="">{track?.album?.name}</p>
+          <button className="text-white rounded-full border px-7 py-3 hover:scale-125 transition transform duration-100 ease-out">
+            Add
+          </button>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default Recommendations;

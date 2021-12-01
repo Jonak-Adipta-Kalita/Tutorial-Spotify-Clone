@@ -99,7 +99,7 @@ const Player = () => {
         <SwitchHorizontalIcon className="button" />
         <RewindIcon
           className="button"
-          onCLick={() => hasPremium && spotifyAPI.skipToPrevious()}
+          onClick={() => hasPremium && spotifyAPI.skipToPrevious()}
         />
         {isPlaying ? (
           <PauseIcon

@@ -130,7 +130,7 @@ const Center = () => {
           Based on what's in this playlist
         </p>
       </div>
-      <div>
+      <div className="px-8">
         <Recommendations />
       </div>
       <div className="flex w-full px-14 pt-14 justify-between">
